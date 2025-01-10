@@ -1,0 +1,19 @@
+CC = gcc
+CCFLAGS = -std=gnu99 -fgnu89-inline -O2 -s -ffast-math -fomit-frame-pointer
+#CCFLAGS = -g -std=gnu99 -fgnu89-inline -Wall
+LDFLAGS = `allegro-config --libs` -laldmb -ldumb -lm
+FILES = anim.c blending.c game.c lighting.c main.c map.c masking.c menu.c particle.c pyramid.c scroller.c
+EDITOR = map.c editor.c
+
+all: paciana editor
+
+paciana: $(FILES)
+	$(CC) $(CCFLAGS) -o paciana $(FILES) $(LDFLAGS)
+
+editor: $(EDITOR)
+	$(CC) $(CCFLAGS) -o editor $(EDITOR) $(LDFLAGS)
+
+clean:
+	rm paciana
+	rm editor
+# DO NOT DELETE

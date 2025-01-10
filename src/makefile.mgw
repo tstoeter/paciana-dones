@@ -1,0 +1,18 @@
+CC = gcc
+CCFLAGS = -std=gnu99 -fgnu89-inline -O2 -s -ffast-math -fomit-frame-pointer -mwindows
+#CCFLAGS = -g -std=gnu99 -fgnu89-inline
+LDFLAGS = -laldmb -ldumb -lalleg -lm
+FILES = anim.c blending.c game.c lighting.c main.c map.c masking.c menu.c particle.c pyramid.c scroller.c
+EDITOR = map.c editor.c
+
+all: paciana.exe editor.exe
+
+paciana.exe: $(FILES)
+	$(CC) $(CCFLAGS) -o paciana.exe $(FILES) $(LDFLAGS)
+
+editor.exe: $(EDITOR)
+	$(CC) $(CCFLAGS) -o editor.exe $(EDITOR) $(LDFLAGS)
+
+clean:
+	del paciana.exe
+	del editor.exe
