@@ -28,9 +28,11 @@ $(TARGET2): $(OEDT)
 	$(CC) $^ -o $@ $(LDFLAGS)
 
 # Compiling
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	if not exist $(OBJ_DIR) mkdir $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) -c $< -o $@ $(CCFLAGS)
+
+$(OBJ_DIR):
+	mkdir $(OBJ_DIR)
 
 # Cleaning
 clean:
