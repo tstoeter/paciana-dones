@@ -1,7 +1,7 @@
 # Compiler settings
 CC := gcc
-CCFLAGS := -std=gnu99 -fgnu89-inline -O2 -s -ffast-math -fomit-frame-pointer
-LDFLAGS := -laldmb -ldumb -lm -lalleg 
+CCFLAGS := -std=gnu99 -s -mtune=i586 -O2 -fgnu89-inline -funroll-loops -ffast-math -fomit-frame-pointer -fcommon
+LDFLAGS := -laldmb -ldumb -lm -lalleg
 
 # Directories
 SRC_DIR := src
@@ -28,12 +28,14 @@ $(TARGET2): $(OEDT)
 	$(CC) $^ -o $@ $(LDFLAGS)
 
 # Compiling
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	if not exist $(OBJ_DIR) mkdir $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(OBJ_DIR)
 	$(CC) -c $< -o $@ $(CCFLAGS)
+
+$(OBJ_DIR):
+	mkdir $(OBJ_DIR)
 
 # Cleaning
 clean:
-	rmdir $(OBJ_DIR)
+	deltree /y $(OBJ_DIR)
 	del $(TARGET1) $(TARGET2)
 

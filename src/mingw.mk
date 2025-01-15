@@ -1,7 +1,7 @@
 # Compiler settings
 CC := gcc
-CCFLAGS := -std=gnu99 -fgnu89-inline -O2 -s -ffast-math -fomit-frame-pointer -mwindows
-LDFLAGS := -laldmb -ldumb -lm -lalleg 
+CCFLAGS := -std=gnu99 -fgnu89-inline -O2 -s -ffast-math -fomit-frame-pointer -fcommon -mwindows
+LDFLAGS := -laldmb -ldumb -lm -lalleg
 
 # Directories
 SRC_DIR := src
@@ -28,7 +28,7 @@ $(TARGET2): $(OEDT)
 	$(CC) $^ -o $@ $(LDFLAGS)
 
 # Compiling
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(OBJ_DIR)
 	$(CC) -c $< -o $@ $(CCFLAGS)
 
 $(OBJ_DIR):
